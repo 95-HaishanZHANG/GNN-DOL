@@ -1,0 +1,30 @@
+data:
+  img_dict: 'data/090303/img_cell_dict_test-1.npy' # Path of npy file 
+  imgs: 'data/090303/test' # Path of test images
+
+test:
+  save_path: 'data/outputs-pred-1'
+  model_path: '/home/hzhang/zhanghaishan/docs/GraphQP/checkpoints/CP_epoch1.pth'
+  pp_model_path: '/home/hzhang/zhanghaishan/docs/GraphQP/pp_model/CP_epoch100.pth'
+  win_size: [25, 25]
+
+graph_model_params:
+
+  encoder_model_params:
+    edge_in_dim: 10
+    edge_fc_dims: [20, 20]
+    edge_out_dim: 18
+    node_in_dim:  2500 # output size of UNet
+    node_fc_dims: [1024, 256]
+    node_out_dim: 2500
+    dist_fc_dim: 48 # dimension of x_e
+
+  edge_model_feats_dict:
+    fc_dims: [20, 10] # Input size is 2 * encoded edges
+    dropout_p: 0
+    use_batchnorm: False
+
+  node_model_feats_dict:
+    fc_dims: [64, 32] # Input size is 2 * encoded nodes
+    dropout_p: 0
+    use_batchnorm: False

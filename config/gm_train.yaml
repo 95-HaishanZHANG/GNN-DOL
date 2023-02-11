@@ -1,0 +1,49 @@
+# Hydra configuration file for training
+
+dataset_params:
+  train:
+    g_stc: 'data/090303/debug/g_structure.txt'                     # Path of txt file 'g_structure' constructed by graph_construct.py 
+    csv: 'data/090303/debug'
+
+  eval:
+    g_stc:                       # None is OK. In that case, eval.rate in the training data is used for evaluation.
+    csv: 
+    rate: 0.1                    # Evaluation rate for no eval data
+
+output:
+  save: True
+  dir: 'checkpoints/'
+
+load: False                   # If you use a trained model, please rewrite it.
+
+train_params:
+  prob_size: 5                 # number of nodes for graph cur and nxt
+  epochs: 1                   # Number of epoch
+  batch_size: 2                 # Batch size
+  lr: 0.0001                    # Learning rate of Adam
+  weight_loss_n: 1
+
+graph_model_params:
+
+  encoder_model_params:
+    edge_in_dim: 10
+    edge_fc_dims: [20, 20]
+    edge_out_dim: 18
+    node_in_dim:  2500 # output size of UNet
+    node_fc_dims: [1024, 256]
+    node_out_dim: 2500
+    dropout_p: 0
+    dist_fc_dim: 48 # dimension of x_e
+    use_batchnorm: False
+    edge_agg_fn: 'mean' # sum or max or mean
+
+  edge_model_feats_dict:
+    fc_dims: [20, 10] # Input size is 2 * encoded edges
+    dropout_p: 0
+    use_batchnorm: False
+
+  node_model_feats_dict:
+    fc_dims: [64, 32] # Input size is 2 * encoded nodes
+    dropout_p: 0
+    use_batchnorm: False
+

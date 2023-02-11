@@ -1,0 +1,9 @@
+data:
+  img_dict: 'data/090303/img_cell_dict_test-1.npy' # Path of file 'img_cell_dict.npy' 
+  imgs: 'data/090303/test-1' # Path of corresponding image files for img_dict 
+
+params:
+  save_dir: 'data/090303/debug'
+  prob_size: 10 # Size of nodes in one graph
+  win_size: [25, 25]        # Size of crop height
+  pp_model_path: '/home/hzhang/zhanghaishan/docs/GraphQP/pp_model/CP_epoch100.pth'  # Path of model for pre processing
