@@ -8,8 +8,6 @@ from torch import optim
 from tqdm import tqdm
 from os.path import abspath
 
-from torch.utils.tensorboard import SummaryWriter
-
 import torch.nn.functional as F
 import numpy as np
 import cv2
@@ -28,7 +26,6 @@ class RMSE_Q_NormLoss(nn.Module):
     def forward(self, yhat, y):
         x_pred = yhat.reshape(-1)
         x_gt = y.reshape(-1)
-        # bce_log = nn.BCEWithLogitsLoss(weight=weight.cuda())
         bce_log = nn.BCEWithLogitsLoss(pos_weight=torch.tensor([self.p_s]).cuda())
         
         return bce_log(x_pred, x_gt)
@@ -41,8 +38,6 @@ def setup_seed(seed):
      torch.backends.cudnn.deterministic = True
 
 def load_model(model_path, parallel=False):
-    # model_path = 
-    # abs_model_path = abspath(model_path)
     model = UNet(1, 1)
     model.cuda()
     state_dict = torch.load(model_path)
@@ -54,14 +49,8 @@ def load_model(model_path, parallel=False):
 
 def eval_net_cla(net, loader, criterion, device, writer, global_step):
     net.eval()
-    # mask_type = torch.float32 if net.n_classes == 1 else torch.long
     n_val = len(loader)  # the number of batch
-    # print('n_val: ', n_val)
-    n_prec = 0
     total_error_n = 0
-    total_acc_n = 0
-    total_prec = 0
-    total_recall = 0
 
     with tqdm(total=n_val, desc='Validation round', unit='batch', leave=False) as pbar:
         for batch in loader:
@@ -69,12 +58,12 @@ def eval_net_cla(net, loader, criterion, device, writer, global_step):
             x_gt = g_data.matching_gt
 
             with torch.no_grad():
-                gnn_pred, Q_pred, Kp, Kq = net(g_data)
+                gnn_pred = net(g_data)
                 gnn_pred = gnn_pred.to(device=device)
             b_s = gnn_pred.shape[0]
             x_gt = x_gt.reshape(b_s, -1)
 
-            error_n = criterion(gnn_pred, x_gt, 'test')
+            error_n = criterion(gnn_pred, x_gt)
             total_error_n += error_n
 
             pbar.update()

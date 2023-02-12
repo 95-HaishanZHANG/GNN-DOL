@@ -128,9 +128,9 @@ class MPNet(nn.Module):
 
         # Define all MLPs involved in the graph network
 
-        encoder_feats_dict = model_params['encoder_model_params']
-        edge_model_in_dim = encoder_feats_dict['edge_out_dim'] * 1 + encoder_feats_dict['node_out_dim'] * 2
-        node_model_in_dim = encoder_feats_dict['node_out_dim'] * 1 + encoder_feats_dict['edge_out_dim'] * 2 + 2 
+        encoder_feats_dict = model_params['model_input_params']
+        edge_model_in_dim = encoder_feats_dict['edge_init_dim'] * 1 + encoder_feats_dict['node_init_dim'] * 2
+        node_model_in_dim = encoder_feats_dict['node_init_dim'] * 1 + encoder_feats_dict['edge_init_dim'] * 2 + 2 
 
         # Define all MLPs used within the MPN
         edge_model_feats_dict = model_params['edge_model_feats_dict']

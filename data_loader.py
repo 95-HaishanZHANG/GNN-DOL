@@ -83,7 +83,7 @@ class GM_Dataset(InMemoryDataset):
         
         idx_cell_nxt = np.array([], dtype=int)
         if exist_dvs_id.shape[0] != 0:
-            idx_cell_nxt = np.where(np.isin(par_id_nxt, exist_dvs_id))[0] # 被选中的子细胞id
+            idx_cell_nxt = np.where(np.isin(par_id_nxt, exist_dvs_id))[0] # ID of selected daughter cells
             idx_cell_nxt = idx_cell_nxt[:self.prob_size] if idx_cell_nxt.shape[0] > self.prob_size else idx_cell_nxt
         num_no_dvs = (self.prob_size - idx_cell_nxt.shape[0]) if (self.prob_size - idx_cell_nxt.shape[0]) > 0 else 0
         no_par_idx = np.delete(range(len(par_id_nxt)), idx_cell_nxt)

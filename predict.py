@@ -1,24 +1,16 @@
 import logging
 import os
 import sys
-
 import torch
 import torch.nn as nn
 from torch import optim
 from tqdm import tqdm
 import numpy as np
-
-from utils.model_utils import RMSE_Q_NormLoss, eval_net_cla, setup_seed
-
-from torch.utils.tensorboard import SummaryWriter
-from torch.utils.data import random_split
+from utils.model_utils import RMSE_Q_NormLoss, setup_seed, save_output
 from graph_construct import GMGraph
 from torch_geometric.data import Data
-from torch.autograd import gradcheck
 from datetime import datetime
 from net.GMNet import GMNet
-
-
 import hydra
 from hydra.utils import to_absolute_path as abs_path
 
@@ -83,7 +75,8 @@ def predict(device, cfg):
         with torch.no_grad():
             c_graph = c_graph.to(device)
             gnn_pred = net(c_graph)
-            # gnn_pred = gnn_pred.to(device=device)
+            # You need to write your own output save path
+            save_output(out_save_path, gnn_pred, -1)
                 
 
 @hydra.main(config_path='config', config_name='gm_test')

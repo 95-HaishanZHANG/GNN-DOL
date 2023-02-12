@@ -43,7 +43,7 @@ def load_img(img_dir, gt_dir, img_cell_dict, seq_name):
     crop_img_posi = (r+1, r+1, (img_shape[0] - r-1), (img_shape[1] - r-1)) # 1042 1390
     for key_gt in gt_dic.keys():
         i = int(key_gt)
-        if i > 100:
+        if i > 200:
             continue
         sub_file_name = str(i).zfill(4) + '.tif'
         key_cell_dict = seq_name + '-' + str(i).zfill(4)

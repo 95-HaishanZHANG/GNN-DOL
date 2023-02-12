@@ -6,4 +6,4 @@ params:
   save_dir: 'data/090303/debug'
   prob_size: 10 # Size of nodes in one graph
   win_size: [25, 25]        # Size of crop height
-  pp_model_path: '/home/hzhang/zhanghaishan/docs/GraphQP/pp_model/CP_epoch100.pth'  # Path of model for pre processing
+  pp_model_path: '/home/hzhang/zhanghaishan/docs/GraphQP/pp_model/CP_epoch100.pth'  # Path of  pre-processing model (UNet)

@@ -10,21 +10,16 @@ test:
 
 graph_model_params:
 
-  encoder_model_params:
-    edge_in_dim: 10
-    edge_fc_dims: [20, 20]
-    edge_out_dim: 18
-    node_in_dim:  2500 # output size of UNet
-    node_fc_dims: [1024, 256]
-    node_out_dim: 2500
-    dist_fc_dim: 48 # dimension of x_e
+  model_input_params:
+    edge_init_dim: 18 # Dimension of edge features
+    node_init_dim: 2500 # Dimension of node features
 
   edge_model_feats_dict:
-    fc_dims: [20, 10] # Input size is 2 * encoded edges
+    fc_dims: [1000, 100] 
     dropout_p: 0
     use_batchnorm: False
 
   node_model_feats_dict:
-    fc_dims: [64, 32] # Input size is 2 * encoded nodes
+    fc_dims: [1000, 100] 
     dropout_p: 0
     use_batchnorm: False
